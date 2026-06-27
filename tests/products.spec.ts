@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../fixtures';
 import { LoginPage } from '../pages/LoginPage';
 import { ProductsPage } from '../pages/ProductsPage';
 
@@ -6,12 +6,8 @@ let loginPage: LoginPage;
 let productsPage: ProductsPage;
 
 test.describe('Products Page tests', () => {
-    test.beforeEach(async({page}) => {
-        loginPage = new LoginPage(page);
+    test.beforeEach(async({page, loggedInPage}) => {
         productsPage = new ProductsPage(page);
-
-        await loginPage.goto();
-        await loginPage.login('standard_user', 'secret_sauce');
     });
 
     test('should show products page', async({page}) =>{
@@ -28,4 +24,4 @@ test.describe('Products Page tests', () => {
         const count = await productsPage.getCartCount();
         expect(count).toBe('1');
     });
-}); 
+});

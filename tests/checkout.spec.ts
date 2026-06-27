@@ -1,4 +1,4 @@
-import {test, expect} from '@playwright/test';
+import {test, expect} from '../fixtures';
 import { LoginPage } from '../pages/LoginPage';
 import {ProductsPage} from '../pages/ProductsPage';
 import { CheckoutPage } from '../pages/CheckoutPage';
@@ -6,7 +6,7 @@ import { CheckoutPage } from '../pages/CheckoutPage';
 let checkoutPage: CheckoutPage;
 
 test.describe('Checkout tests', ()=>{
-    test.beforeEach(async ({page})=> {
+    test.beforeEach(async ({page, loggedInPage})=> {
 
         const loginPage = new LoginPage(page);
         await loginPage.goto();
@@ -41,6 +41,5 @@ test.describe('Checkout tests', ()=>{
         await checkoutPage.finishOrder();
         expect(await checkoutPage.getConfirmationMessage()).toBe('Thank you for your order!');
     });
-    
 
 });
